@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Recetario</title>
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#c2410c">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<style>
+:root{--bg:#faf7f2;--card:#fff;--tx:#161616;--mu:#666;--ac:#c2410c;--bd:#d9d0c3;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#15110d;--card:#251f19;--tx:#fff8ef;--mu:#b5a998;--ac:#fb923c;--bd:#40372d;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#15110d;--card:#251f19;--tx:#fff8ef;--mu:#b5a998;--ac:#fb923c;--bd:#40372d;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0 auto;background:var(--bg);color:var(--tx);font:20px/1.3 system-ui,sans-serif;max-width:700px;padding:12px}
+input{width:100%;padding:16px;border:2px solid var(--bd);border-radius:14px;background:var(--card);color:var(--tx);font-size:22px}
+.row{display:flex;gap:8px;overflow-x:auto;padding:12px 0}
+.chip{flex:none;border:2px solid var(--bd);background:var(--card);color:var(--tx);padding:10px 16px;border-radius:99px;font-size:18px;font-weight:600}
+.on{background:var(--ac);color:#fff;border-color:var(--ac)}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.d{min-height:84px;padding:10px;border:2px solid var(--bd);border-radius:16px;background:var(--card);color:var(--tx);font-size:22px;font-weight:700;text-align:center}
+.d:active{background:var(--ac);color:#fff}
+.back{width:100%;padding:16px;border-radius:14px;border:0;background:var(--ac);color:#fff;font-size:22px;font-weight:700;margin-bottom:14px}
+h1{font-size:44px;line-height:1.05;margin:0 0 6px}
+.g{color:var(--mu);font-size:20px;margin-bottom:12px}
+ul{list-style:none;margin:0;padding:0}
+li{font-size:30px;line-height:1.25;padding:10px 0;border-bottom:1px solid var(--bd)}
+li b{color:var(--ac)}
+.x{font-size:24px;margin-top:16px}
+.nt{font-size:24px;margin-top:14px;padding:12px;border-radius:12px;background:var(--card);border:2px solid var(--ac)}
+.mu{color:var(--mu);font-size:20px;text-align:center;padding:20px}
+</style></head><body>
+<div id="app"></div>
+<script>
+var R=[
+{n:"Amelia",g:"Shaker → vaso michelado / old fashion",b:["Mezcal"],i:["45 ml mezcal","90 ml jugo de guayaba","40 ml jugo de piña","10 ml jarabe","10 ml limón","1 rodaja de chile"],d:"Hoja de piña y una piña seca"},
+{n:"Julio César",g:"Old fashion",b:["Mezcal"],i:["5 hojas de albahaca","3 tiras de pepino","25 ml limón","30 ml jarabe","45 ml mezcal","60 ml jugo de piña"],nt:"El pepino va enrollado y se muele primero en el shaker."},
+{n:"Margarita old fashion",g:"Old fashion, escarchado con sal",b:["Tequila"],i:["45 ml tequila (José Cuervo blanco)","30 ml Cointreau","15 ml limón","15 ml jarabe"],d:"Limón deshidratado"},
+{n:"Bravo",g:"Copa con hielo",b:["Espumoso"],i:["1 parte agua mineral","1 parte vino espumoso","60 ml St-Germain"],d:"Rodaja de limón amarillo"},
+{n:"Olú",g:"Copa con hielo",b:["Espumoso"],i:["1 parte agua mineral","2/3 parte vino espumoso","60 ml Aperol"],d:"Rodaja de naranja"},
+{n:"Kasuma",g:"Copa (shaker, molido)",b:["Ginebra","Espumoso"],i:["5 uvas verdes (molidas en el shaker)","45 ml ginebra (botella redonda roja)","15 ml limón","30 ml jarabe de neldo (botella negra de plástico)","Terminar con mineral y espumoso"],d:"Uva en rodajas"},
+{n:"Cosmopolitan",g:"Copa cónica",b:["Vodka"],i:["45 ml vodka","15 ml Cointreau","15 ml limón","45 ml jugo de arándano","Un poco de granadina"],d:"Naranja deshidratada"},
+{n:"Naked and Famous",g:"Copa César (triangular chica)",b:["Mezcal"],i:["25 ml mezcal","25 ml limón","25 ml Aperol","25 ml Chartreuse amarillo"]},
+{n:"Prometeo",g:"Vaso de corazón, escarchado de Tajín",b:["Mezcal","Tequila"],i:["20 ml mezcal","20 ml tequila","15 ml Cointreau","15 ml limón","20 ml jarabe","1 jalapeño","50 ml jarabe de durazno","0.1 Tajín","Rodajas de durazno (van en el shaker)"],d:"1 garnish"},
+{n:"Old Fashioned",g:"Old fashion, cubo de hielo",b:["Whisky"],i:["1 cda azúcar","2 splash Angostura","Pizca de mineral (mezclar)","2 oz Bulleit bourbon"],d:"Rodaja de naranja"},
+{n:"Bramble",g:"Old fashion",b:["Ginebra"],i:["45 ml ginebra","25 ml limón amarillo","20 ml jarabe","25 ml Chambord"],nt:"Moler la zarzamora al final y ponerla en el vaso."},
+{n:"Leveriee",g:"Copa (shakeado y molido)",b:["Whisky"],i:["45 ml jarabe","30 ml limón","45 ml whisky Black & White","3 zarzamoras","Terminar con agua mineral"],d:"2 hojas de menta",nt:"Va en copa, shakeado y molido hasta la zarzamora."},
+{n:"Negroni",g:"Old fashion (vaso grande de vidrio)",b:["Ginebra"],i:["30 ml Campari","30 ml vermut rojo","30 ml ginebra"],d:"Rodaja de naranja",nt:"Solo se mezcla, sin shaker."},
+{n:"Whisky Sour",g:"Old fashion",b:["Whisky"],i:["60 ml bourbon","30 ml limón","20 ml jarabe","1 clara de huevo","2 gotas de Angostura"],d:"Cereza, rodaja de naranja y gota de Angostura",nt:"Doble shakeo: uno con hielo y otro sin hielo al final."},
+{n:"Artemisa (sin alcohol)",g:"Shaker → vaso largo con diseño",b:["Sin alcohol"],i:["45 ml jugo de guayaba","3 zarzamoras","2 frambuesas","30 ml jarabe","15 ml limón"],d:"2 hojas de menta al final"},
+{n:"Mezcalita de jamaica",g:"Old fashion con hielo, escarchado de Tajín",b:["Mezcal"],i:["45 ml jamaica","45 ml mezcal","30 ml jarabe","10 ml limón"]}
+];
+R.sort(function(a,b){return a.n.localeCompare(b.n,"es")});
+var app=document.getElementById("app"),q="",f="Todos";
+var bases=["Todos","Mezcal","Tequila","Ginebra","Whisky","Vodka","Espumoso","Sin alcohol"];
+function bold(x){return x.replace(/^([\d\/.,]+(\s?(ml|oz|cda|splash|partes?))?)/,"<b>$1</b>")}
+function home(){
+app.innerHTML='<input id="s" placeholder="Buscar bebida…" value="'+q+'"><div class="row">'+bases.map(function(b){return '<button class="chip'+(b==f?' on':'')+'" data-b="'+b+'">'+b+'</button>'}).join('')+'</div><div class="grid" id="l"></div>';
+document.getElementById("s").oninput=function(e){q=e.target.value;fill()};
+app.querySelectorAll("[data-b]").forEach(function(c){c.onclick=function(){f=c.dataset.b;home()}});fill();}
+function fill(){var t=q.toLowerCase(),o="";
+R.forEach(function(r,k){if(f!="Todos"&&r.b.indexOf(f)<0)return;if(t&&(r.n+r.i.join(" ")).toLowerCase().indexOf(t)<0)return;o+='<button class="d" data-k="'+k+'">'+r.n+'</button>'});
+var l=document.getElementById("l");l.innerHTML=o||'<div class="mu">Sin resultados</div>';
+l.querySelectorAll("[data-k]").forEach(function(c){c.onclick=function(){detail(+c.dataset.k)}});}
+function detail(k){var r=R[k];
+app.innerHTML='<button class="back" id="bk">← Volver</button><h1>'+r.n+'</h1><div class="g">'+r.g+'</div><ul>'+r.i.map(function(x){return '<li>'+bold(x)+'</li>'}).join('')+'</ul>'+(r.d?'<div class="x"><b>Decora:</b> '+r.d+'</div>':'')+(r.nt?'<div class="nt">'+r.nt+'</div>':'');
+window.scrollTo(0,0);document.getElementById("bk").onclick=home;}
+home();
+if("serviceWorker" in navigator){window.addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){})})}
+</script></body></html>
